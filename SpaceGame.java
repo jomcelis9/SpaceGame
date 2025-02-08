@@ -14,7 +14,7 @@ public class SpaceGame extends JPanel implements KeyListener, ActionListener {
     private List<Enemy> enemies;
     private int score;
     private Difficulty difficulty;
-    private Image spaceshipImage, slipperImage;
+    private Image spaceshipImage, slipperImage,canImage;
     
 
     public enum Difficulty {
@@ -25,6 +25,7 @@ public class SpaceGame extends JPanel implements KeyListener, ActionListener {
 
         spaceshipImage = new ImageIcon("images/pinoy.png").getImage();
         slipperImage = new ImageIcon("images/slipper.png").getImage();
+        canImage = new ImageIcon("images/can.png").getImage();
         this.difficulty = difficulty;
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setBackground(Color.BLACK);
@@ -59,26 +60,40 @@ public class SpaceGame extends JPanel implements KeyListener, ActionListener {
         }
 
         // Draw bullets
-        // g2d.setColor(Color.RED);
-        for (Bullet bullet : bullets) {
-            g2d.fillRect((int) (bullet.x - 5), (int) (bullet.y - 5), 10, 10);
-        }
-        int slipperWidth = 25; // Desired width
-        int slipperHeight = 75; // Desired height
-        if (spaceshipImage != null) {
-            g2d.drawImage(spaceshipImage, 
-                          (int) (spaceshipX - slipperWidth / 2), // Centering the image
-                          (int) (spaceshipY - slipperHeight / 2), 
-                          slipperWidth, 
-                          slipperHeight, 
-                          null);
+
+    // Define slipper width and height
+        int slipperWidth = 13;  // Desired width of slipper
+        int slipperHeight = 38; // Desired height of slippers        
+        // Draw bullets as slippers
+        if (slipperImage != null) {
+            for (Bullet bullet : bullets) {
+                g2d.drawImage(
+                    slipperImage, 
+                    (int) (bullet.x - slipperWidth / 2), 
+                    (int) (bullet.y - slipperHeight / 2), 
+                    slipperWidth, 
+                    slipperHeight, 
+                    null
+                );
+            }
         }
 
         // Draw enemies
-        g2d.setColor(Color.GREEN);
-        for (Enemy enemy : enemies) {
-            g2d.fillRect((int) (enemy.x - 15), (int) (enemy.y - 15), 30, 30);
-        }
+        // g2d.setColor(Color.GREEN);
+        int canWidth = 30;  // Desired width of slipper
+        int canHeight = 45; // Desired height of slippers
+        if (canImage != null) {
+            for (Enemy enemy : enemies) {
+                g2d.drawImage(
+                    canImage, 
+                    (int) (enemy.x - canWidth / 2), 
+                    (int) (enemy.y - canHeight / 2), 
+                    canWidth, 
+                    canHeight, 
+                    null
+                );            
+            }
+        }      
 
         // Draw score
         g2d.setColor(Color.WHITE);
