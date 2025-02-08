@@ -14,7 +14,7 @@ public class SpaceGame extends JPanel implements KeyListener, ActionListener {
     private List<Enemy> enemies;
     private int score;
     private Difficulty difficulty;
-    private Image spaceshipImage, slipperImage,canImage;
+    private Image spaceshipImage, slipperImage,canImage,backgroundImage;
     
 
     public enum Difficulty {
@@ -23,8 +23,10 @@ public class SpaceGame extends JPanel implements KeyListener, ActionListener {
 
     public SpaceGame(Difficulty difficulty) {
 
+        backgroundImage = new ImageIcon("images/road.png").getImage();
         spaceshipImage = new ImageIcon("images/pinoy.png").getImage();
         slipperImage = new ImageIcon("images/slipper.png").getImage();
+    
         canImage = new ImageIcon("images/can.png").getImage();
         this.difficulty = difficulty;
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -47,6 +49,10 @@ public class SpaceGame extends JPanel implements KeyListener, ActionListener {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
+
+        if (backgroundImage != null) {
+            g2d.drawImage(backgroundImage, 0, 0, WIDTH, HEIGHT, null); // Stretch image to fit screen
+        } 
 
         int spaceshipWidth = 25; // Desired width
         int spaceshipHeight = 75; // Desired height
