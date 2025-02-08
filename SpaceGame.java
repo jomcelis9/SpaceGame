@@ -66,8 +66,8 @@ public class SpaceGame extends JPanel implements KeyListener, ActionListener {
         // Draw bullets
 
     // Define slipper width and height
-        int slipperWidth = 30;  // Desired width of slipper
-        int slipperHeight = 58; // Desired height of slippers        
+        int slipperWidth = 28;  // Desired width of slipper
+        int slipperHeight = 38; // Desired height of slippers        
         // Draw bullets as slippers
         if (slipperImage != null) {
             for (Bullet bullet : bullets) {
@@ -75,7 +75,7 @@ public class SpaceGame extends JPanel implements KeyListener, ActionListener {
                     slipperImage, 
                     (int) (bullet.x - slipperWidth / 2), 
                     (int) (bullet.y - slipperHeight / 2), 
-                    slipperWidth, 
+                    slipperWidth,
                     slipperHeight, 
                     null
                 );
