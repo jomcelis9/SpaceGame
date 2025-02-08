@@ -33,7 +33,6 @@ public class SpaceGame extends JPanel implements KeyListener, ActionListener {
         setBackground(Color.BLACK);
         addKeyListener(this);
         setFocusable(true);
-
         spaceshipX = WIDTH / 2;
         spaceshipY = HEIGHT / 2;
         velocity = new Vector2(0, 0);
@@ -64,7 +63,6 @@ public class SpaceGame extends JPanel implements KeyListener, ActionListener {
                           spaceshipHeight, 
                           null);
         }
-
         // Draw bullets
 
     // Define slipper width and height
@@ -86,20 +84,24 @@ public class SpaceGame extends JPanel implements KeyListener, ActionListener {
 
         // Draw enemies
         // g2d.setColor(Color.GREEN);
-        int canWidth = 30;  // Desired width of slipper
-        int canHeight = 45; // Desired height of slippers
+        int canWidth = 30;
+        int canHeight = 45;
         if (canImage != null) {
             for (Enemy enemy : enemies) {
+                g2d.translate(enemy.x, enemy.y); // Move to enemy's position
+                g2d.rotate(enemy.rotation);    // Rotate canvas by the enemy's rotation
                 g2d.drawImage(
-                    canImage, 
-                    (int) (enemy.x - canWidth / 2), 
-                    (int) (enemy.y - canHeight / 2), 
-                    canWidth, 
-                    canHeight, 
+                    canImage,
+                    -canWidth / 2,  // Center the image
+                    -canHeight / 2,
+                    canWidth,
+                    canHeight,
                     null
-                );            
+                );
+                g2d.rotate(-enemy.rotation);   // Reset rotation
+                g2d.translate(-enemy.x, -enemy.y); // Reset translation
             }
-        }      
+        }    
 
         // Draw score
         g2d.setColor(Color.WHITE);
@@ -215,7 +217,7 @@ public class SpaceGame extends JPanel implements KeyListener, ActionListener {
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
-    }
+    } 
 
     // Simple 2D vector class
     public static class Vector2 {
@@ -272,6 +274,7 @@ public class SpaceGame extends JPanel implements KeyListener, ActionListener {
 
     public static class Enemy {
         double x, y, dx, dy;
+        double rotation;
 
         public Enemy(double x, double y, int speed) {
             this.x = x;
@@ -286,6 +289,15 @@ public class SpaceGame extends JPanel implements KeyListener, ActionListener {
             this.dy = Math.sin(angle) * 2;
             this.x += dx;
             this.y += dy;
+
+                // Increment rotation for spinning effect
+        this.rotation += 0.1; // Adjust speed of rotation as needed
+        if (this.rotation >= 2 * Math.PI) {
+            this.rotation -= 2 * Math.PI; // Keep rotation within 0 to 2π
         }
+
+
+    }
+        
     }
 }
